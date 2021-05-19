@@ -56,8 +56,10 @@ def VaccineCheck(state):
 
     st_id
     response = requests.get(district_url,headers = headers )
+    'check1'
     data = response.json()
-    data
+    'check2'
+    
 
     district_index = {}
     for district in data['districts']:
