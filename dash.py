@@ -54,10 +54,10 @@ def VaccineCheck(state):
     headers = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:85.0) Gecko/20100101 Firefox/85.0'}
     district_url = f"https://cdn-api.co-vin.in/api/v2/admin/location/districts/{st_id}"
 
-    st_id
+    
     data = requests.get(district_url,headers = headers ).json()
     
-    'check2'
+    
     
 
     district_index = {}
