@@ -56,7 +56,7 @@ def VaccineCheck(state):
 
     st_id
     response = requests.get(district_url,headers = headers )
-    'check1'
+    district_url
     data = response.json()
     'check2'
     
