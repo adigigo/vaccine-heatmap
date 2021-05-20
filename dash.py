@@ -54,13 +54,9 @@ def VaccineCheck(state):
     district_url = "https://cdn-api.co-vin.in/api/v2/admin/location/districts/"+st_id
 
     
-    response = requests.get(district_url,headers = headers)
-    a = response.headers.get('Content-Type')
-    f'the return for {state} is {a}'
-    response
-    # dist_data = response.json()
+    dist_data = json.loads(requests.get(district_url,headers = headers).text)
     
-    
+    dist_data
 
     # district_index = {}
     # for district in dist_data['districts']:
