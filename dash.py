@@ -56,7 +56,7 @@ def VaccineCheck(state):
     
     response = requests.get(district_url,headers = headers)
     a = response.headers.get('Content-Type')
-    a
+    f'the return for {state} is {a}'
     # dist_data = response.json()
     
     
