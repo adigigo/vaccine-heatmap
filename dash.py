@@ -55,13 +55,13 @@ def VaccineCheck(state):
     district_url = f"https://cdn-api.co-vin.in/api/v2/admin/location/districts/{st_id}"
 
     
-    data = requests.get(district_url,headers = headers ).json()
-    
+    response = requests.get(district_url,headers = headers)
+    dist_data = response.json()
     
     
 
     district_index = {}
-    for district in data['districts']:
+    for district in dist_data['districts']:
         district_index[district['district_name']] = district['district_id']
 
 
@@ -70,8 +70,8 @@ def VaccineCheck(state):
         district_count = 0
         url = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id={district_index[district]}&date={current_date}"
         response = requests.get(url,headers = headers)
-        data = response.json()
-        centers = data['centers']
+        session_data = response.json()
+        centers = session_data['centers']
         
         for center in centers:
             for session in center['sessions']:
