@@ -49,14 +49,15 @@ def VaccineCheck(state):
     today = date.today()
     current_date = today.strftime("%d-%m-%Y")   ##Gets todays Date
 
-    st_id = state_index[state]
+    st_id = str(state_index[state])
     headers = {'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:85.0) Gecko/20100101 Firefox/85.0'}
-    district_url = f"https://cdn-api.co-vin.in/api/v2/admin/location/districts/{st_id}"
+    district_url = "https://cdn-api.co-vin.in/api/v2/admin/location/districts/"+st_id
 
     
-    response = requests.get(district_url)
+    response = requests.get(district_url,headers = headers)
     a = response.headers.get('Content-Type')
     f'the return for {state} is {a}'
+    response
     # dist_data = response.json()
     
     
