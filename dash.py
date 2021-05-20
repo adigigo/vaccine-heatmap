@@ -3,7 +3,6 @@ import pandas as pd
 import requests
 import json
 from datetime import date,datetime
-import time
 import geopandas as gpd
 import plotly.express as px
 
@@ -56,46 +55,47 @@ def VaccineCheck(state):
 
     
     response = requests.get(district_url,headers = headers)
-    dist_data = response.json()
+    response.headers.get('Content-Type')
+    # dist_data = response.json()
     
     
 
-    district_index = {}
-    for district in dist_data['districts']:
-        district_index[district['district_name']] = district['district_id']
+    # district_index = {}
+    # for district in dist_data['districts']:
+    #     district_index[district['district_name']] = district['district_id']
 
 
-    state_count = {}
-    for district in district_index:
-        district_count = 0
-        url = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id={district_index[district]}&date={current_date}"
-        response = requests.get(url,headers = headers)
-        session_data = response.json()
-        centers = session_data['centers']
+    # state_count = {}
+    # for district in district_index:
+    #     district_count = 0
+    #     url = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id={district_index[district]}&date={current_date}"
+    #     response = requests.get(url,headers = headers)
+    #     session_data = response.json()
+    #     centers = session_data['centers']
         
-        for center in centers:
-            for session in center['sessions']:
-                district_count += session['available_capacity']
-        state_count[district] = district_count
+    #     for center in centers:
+    #         for session in center['sessions']:
+    #             district_count += session['available_capacity']
+    #     state_count[district] = district_count
 
-    state_df = pd.DataFrame.from_dict(state_count,orient = 'index')
-    state_df.columns = ['Current Availability']
+    # state_df = pd.DataFrame.from_dict(state_count,orient = 'index')
+    # state_df.columns = ['Current Availability']
 
 
 
-    file_name = f'{state}.geojson'
-    map = gpd.read_file(file_name)
-    map = map[['distname','geometry']]
-    map.set_index('distname',inplace = True)
+    # file_name = f'{state}.geojson'
+    # map = gpd.read_file(file_name)
+    # map = map[['distname','geometry']]
+    # map.set_index('distname',inplace = True)
 
-    merged_data = map.merge(state_df,left_index = True,right_index = True)
+    # merged_data = map.merge(state_df,left_index = True,right_index = True)
 
-    fig = px.choropleth_mapbox(merged_data,geojson = merged_data.geometry,locations = merged_data.index,color = "Current Availability",mapbox_style="carto-positron",center={"lat": 16.784, "lon": 78.113},zoom = 4,
-    color_continuous_scale = 'geyser')
+    # fig = px.choropleth_mapbox(merged_data,geojson = merged_data.geometry,locations = merged_data.index,color = "Current Availability",mapbox_style="carto-positron",center={"lat": 16.784, "lon": 78.113},zoom = 4,
+    # color_continuous_scale = 'geyser')
 
-    st.write('The map is interactive! Scroll and Zoom')
+    # st.write('The map is interactive! Scroll and Zoom')
 
-    fig
+    # fig
 
 
 st.title('COVID-19 Vaccine Heatmap')
